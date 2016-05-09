@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Mailhub by MrVokia</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Mailhub</h1>
+      <h2 class="project-tagline">MailHub is an email package for Laravel</h2>
+      <a href="https://github.com/MrVokia/MailHub" class="btn">View on GitHub</a>
+      <a href="https://github.com/MrVokia/MailHub/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/MrVokia/MailHub/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="mailhub" class="anchor" href="#mailhub" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MailHub</h1>
+
+<p><a href="https://travis-ci.org/MrVokia/MailHub"><img src="https://travis-ci.org/MrVokia/MailHub.svg?branch=master" alt="Build Status"></a>
+<a href="https://packagist.org/packages/mrvokia/mailhub"><img src="https://poser.pugx.org/mrvokia/mailhub/v/stable" alt="Latest Stable Version"></a> <a href="https://packagist.org/packages/mrvokia/mailhub"><img src="https://poser.pugx.org/mrvokia/mailhub/downloads" alt="Total Downloads"></a> <a href="https://packagist.org/packages/mrvokia/mailhub"><img src="https://poser.pugx.org/mrvokia/mailhub/v/unstable" alt="Latest Unstable Version"></a> <a href="https://packagist.org/packages/mrvokia/mailhub"><img src="https://poser.pugx.org/mrvokia/mailhub/license" alt="License"></a></p>
+
+<hr>
+
+<h2>
+<a id="language-chinese" class="anchor" href="#language-chinese" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Language: <a href="https://github.com/MrVokia/MailHub/edit/master/README_CN.MD">Chinese</a>
+</h2>
+
+<h4>
+<a id="mailhub-is-an-email-package-for-laravel" class="anchor" href="#mailhub-is-an-email-package-for-laravel" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MailHub is an email package for Laravel.</h4>
+
+<p><em>It integrates third-party email services with Laravel's SwiftMail, providing a unified protocol for email routines.
+A rule engine is employed to post emails to different domains by corresponding senders.</em></p>
+
+<ul>
+<li>Provides elegant email interface instead of SwiftMail</li>
+<li>Connects to third-party email services beyond SwiftMail</li>
+<li>Currently implements email sending by SendCloud</li>
+<li>Tags and queues planned in next versions</li>
+<li>Discussions and PRs are welcome</li>
+</ul>
+
+<h2>
+<a id="how-to-install" class="anchor" href="#how-to-install" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to install:</h2>
+
+<pre><code># The introduction of dependent libraries
+composer require mrvokia/mailhub:"dev-master@dev" -vvv
+
+# Added service provider in the providers
+MrVokia\MailHub\MailHubServiceProvider::class
+
+# Add the aliases facade
+'MailHub' =&gt; MrVokia\MailHub\MailHubFacade::class
+
+# Composer auto load
+composer dump
+
+# Push Profile mailhub
+php artisan vendor:publish
+</code></pre>
+
+<h2>
+<a id="how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to use:</h2>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">MrVokia\MailHub\MailHub</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c">/**</span></span>
+<span class="pl-s1"><span class="pl-c"> * Send mail</span></span>
+<span class="pl-s1"><span class="pl-c"> */</span></span>
+<span class="pl-s1"><span class="pl-k">public</span> <span class="pl-k">function</span> <span class="pl-en">example</span>(<span class="pl-c1">MailHub</span> <span class="pl-smi">$mailhub</span>)</span>
+<span class="pl-s1">{</span>
+<span class="pl-s1">    <span class="pl-smi">$mailhub</span><span class="pl-k">-&gt;</span>send()</span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>to([<span class="pl-s"><span class="pl-pds">'</span>1@test.com<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>2@test.com<span class="pl-pds">'</span></span>])</span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>cc([<span class="pl-s"><span class="pl-pds">'</span>3@test.com<span class="pl-pds">'</span></span>])</span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>subject(<span class="pl-s"><span class="pl-pds">'</span>example<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>html(<span class="pl-s"><span class="pl-pds">'</span>example content<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>start()</span>
+<span class="pl-s1">    <span class="pl-c">//or</span></span>
+<span class="pl-s1">    <span class="pl-c1">MailHub</span><span class="pl-k">::</span>send()</span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>to([<span class="pl-s"><span class="pl-pds">'</span>1@test.com<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>2@test.com<span class="pl-pds">'</span></span>])</span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>cc([<span class="pl-s"><span class="pl-pds">'</span>3@test.com<span class="pl-pds">'</span></span>])</span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>subject(<span class="pl-s"><span class="pl-pds">'</span>example<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>html(<span class="pl-s"><span class="pl-pds">'</span>example content<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>start()</span>
+<span class="pl-s1">}</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c">/**</span></span>
+<span class="pl-s1"><span class="pl-c"> * Send template mail</span></span>
+<span class="pl-s1"><span class="pl-c"> */</span></span>
+<span class="pl-s1"><span class="pl-k">public</span> <span class="pl-k">function</span> <span class="pl-en">exampleTemplate</span>(<span class="pl-c1">MailHub</span> <span class="pl-smi">$mailhub</span>)</span>
+<span class="pl-s1">{</span>
+<span class="pl-s1">    <span class="pl-smi">$mailhub</span><span class="pl-k">-&gt;</span>send()</span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>to([<span class="pl-s"><span class="pl-pds">'</span>1@test.com<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>2@test.com<span class="pl-pds">'</span></span>])</span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>subject(<span class="pl-s"><span class="pl-pds">'</span>example<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>xsmtpapi([</span>
+<span class="pl-s1">                <span class="pl-s"><span class="pl-pds">'</span>active<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> [<span class="pl-s"><span class="pl-pds">'</span>test<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>test2<span class="pl-pds">'</span></span>]</span>
+<span class="pl-s1">            ])</span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>templateInvokeName(<span class="pl-s"><span class="pl-pds">'</span>mail.register<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>start()</span>
+<span class="pl-s1">    <span class="pl-c">//or</span></span>
+<span class="pl-s1">    <span class="pl-c1">MailHub</span><span class="pl-k">::</span>send()</span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>to([<span class="pl-s"><span class="pl-pds">'</span>1@test.com<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>2@test.com<span class="pl-pds">'</span></span>])</span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>cc([<span class="pl-s"><span class="pl-pds">'</span>3@test.com<span class="pl-pds">'</span></span>])</span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>subject(<span class="pl-s"><span class="pl-pds">'</span>example<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>xsmtpapi([</span>
+<span class="pl-s1">                <span class="pl-s"><span class="pl-pds">'</span>active<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> [<span class="pl-s"><span class="pl-pds">'</span>test<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>test2<span class="pl-pds">'</span></span>]</span>
+<span class="pl-s1">            ])</span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>templateInvokeName(<span class="pl-s"><span class="pl-pds">'</span>mail.register<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>start()</span>
+<span class="pl-s1">}</span></pre></div>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/MrVokia/MailHub">Mailhub</a> is maintained by <a href="https://github.com/MrVokia">MrVokia</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
